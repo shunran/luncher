@@ -8,12 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Rules {
 	
-	//@Autowired
-	//Message message;
-	
-	private KieSession kSession;
+	protected KieSession kSession;
+	private FormData formData;
 
-	public void init() {
+	public Rules() {
 		try {
 			// load up the knowledge base
 			KieServices ks = KieServices.Factory.get();
@@ -32,8 +30,12 @@ public class Rules {
 		}
 	}
 	
-	public void launch() {
-		kSession.fireAllRules();
+	public void launch(int i) {
+		formData = new FormData(i);
+	}
+	
+	public FormData getFormData() {
+		return formData;
 	}
 
 	public static class Message {
