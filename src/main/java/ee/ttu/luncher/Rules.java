@@ -1,5 +1,10 @@
 package ee.ttu.luncher;
 
+import java.util.Map;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -7,6 +12,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Rules {
+	
+	private @Setter @Getter Integer step = 0;
+	private @Setter @Getter String Question;
+	private @Setter @Getter Map <String, Integer> choices;
 	
 	protected KieSession kSession;
 	private FormData formData;
@@ -30,8 +39,8 @@ public class Rules {
 		}
 	}
 	
-	public void launch(int i) {
-		formData = new FormData(i);
+	public void launch() {
+		formData = new FormData(step);
 	}
 	
 	public FormData getFormData() {
