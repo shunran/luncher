@@ -8,27 +8,59 @@ import lombok.Setter;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.springframework.stereotype.Component;
 
-@Component
 public class Rules {
 	
 	private @Setter @Getter Integer step = 0;
 	private @Setter @Getter String Question;
 	private @Setter @Getter Map <String, Integer> choices;
 	
+	private FactDao factDao;
+	
 	protected KieSession kSession;
 	private FormData formData;
+	
+	protected class FormData {
+		final int len = 1;
+		@Getter @Setter private String question;
+		@Getter @Setter private String[] answers;
+		
+		private final String[] qs = {
+				"Kui vana oli surnud siil?",
+				"Milleks teile külmkapp, kui te ei suitseta?",
+				"Mis värvi on armastus?"};
 
+		private final String[][] as = { {
+				"jeha", "nope" },
+				{
+				"ikka", "natukene"},
+				{
+				"ei ole teind", "lepatriinu"}		
+				};
+		
+		public FormData(int i) {
+			if (len >= i) {
+				question = qs[i];
+				answers = as[i];				
+			} else {
+				question = qs[0];
+				answers = as[0];				
+			}
+
+		}
+	}
 	public Rules() {
 		try {
-			// load up the knowledge base
+
 			KieServices ks = KieServices.Factory.get();
 			KieContainer kContainer = ks.getKieClasspathContainer();
-			//KieSession 
+			
 			kSession = kContainer.newKieSession("ksession-rules");
+			factDao = new FactDao();
+			factDao.load();
 
-			// go !
+			// TODO: fill decisiontree and launch rules
+
 			/*Message message = new Message();
 			/message.setMessage("Hello World");
 		    message.setStatus(Message.HELLO);

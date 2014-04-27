@@ -3,7 +3,7 @@ package ee.ttu.luncher;
 import lombok.Getter;
 import lombok.Setter;
 
-public class FormData {
+public class FormData32 {
 	final int len = 1;
 	@Getter @Setter private String question;
 	@Getter @Setter private String[] answers;
@@ -21,7 +21,7 @@ public class FormData {
 			"ei ole teind", "lepatriinu"}		
 			};
 	
-	public FormData(int i) {
+	public FormData32(int i) {
 		if (len >= i) {
 			question = qs[i];
 			answers = as[i];				
