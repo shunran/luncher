@@ -41,30 +41,28 @@ public class FactDao {
 			System.out.println(Arrays.toString(line));
 			return;
 		}*/
+		System.out.println(Arrays.toString(line));
 		FactVo factVo = new FactVo();
 		factVo.setName(line[0]);
 		factVo.setCuisine(FactVo.Cuisine.valueOf(u(line[1])));
-		factVo.setCost(Integer.parseInt(line[2]));
-		factVo.setService(FactVo.Service.valueOf(u(line[3])));
-		factVo.setServiceClass(FactVo.ServiceClass.valueOf(line[4]));
-		factVo.setLocation(FactVo.Location.valueOf(line[5]));
-		factVo.setDressCode(makeJahEiToBool(line[6]));
-		factVo.setTakeAway(makeJahEiToBool(line[7]));
-		factVo.setPreOrder(makeJahEiToBool(line[8]));
-		factVo.setReservation(makeJahEiToBool(line[9]));
-		factVo.setVegan(makeJahEiToBool(line[10]));
-		factVo.setDriveIn(makeJahEiToBool(line[11]));
-		factVo.setFreeParking(makeJahEiToBool(line[12]));
-		factVo.setPreparationTime(Integer.parseInt(line[13]));
-		factVo.setCafe(makeJahEiToBool(line[14]));
-		factVo.setLiveMusic(makeJahEiToBool(line[15]));
+		factVo.setMinCost(Integer.parseInt(line[2]));
+		factVo.setMaxCost(Integer.parseInt(line[3]));
+		factVo.setService(FactVo.Service.valueOf(u(line[4])));
+		factVo.setServiceClass(FactVo.ServiceClass.valueOf(u(line[5])));
+		factVo.setLocation(FactVo.Location.valueOf(u(line[6])));
+		factVo.setDressCode(makeJahEiToBool(line[7]));
+		factVo.setTakeAway(makeJahEiToBool(line[8]));
+		factVo.setPreOrder(makeJahEiToBool(line[9]));
+		factVo.setReservation(makeJahEiToBool(line[10]));
+		factVo.setVegan(makeJahEiToBool(line[11]));
+		factVo.setDriveIn(makeJahEiToBool(line[12]));
+		factVo.setFreeParking(makeJahEiToBool(line[13]));
+		factVo.setMinPreparationTime(Integer.parseInt(line[14]));
+		factVo.setMaxPreparationTime(Integer.parseInt(line[15]));
+		factVo.setCafe(makeJahEiToBool(line[16]));
+		factVo.setLiveMusic(makeJahEiToBool(line[17]));
 		System.out.println(factVo);
 		facts.add(factVo);
-	}
-	
-	private char[] length(String[] line) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private Boolean makeJahEiToBool(String string) {
