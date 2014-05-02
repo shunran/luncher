@@ -17,11 +17,14 @@ public class HomeController {
 	{
 		System.out.println(form.getAnswer());
 		rules.setStep(rules.getStep() + 1);
-		rules.launch();
 		model.addAttribute("step", rules.getStep() + 1);
 		model.addAttribute("formdata", rules.getFormData());
 		System.out.print(rules.getStep());
 		System.out.print(Arrays.toString(rules.getFormData().getAnswers()));
+		if (rules.getStep() > 3) {
+			System.out.print("ruulid launch");
+			rules.launch();
+		}
 		return "index";
 	}
 }

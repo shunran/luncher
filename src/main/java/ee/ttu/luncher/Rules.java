@@ -18,9 +18,8 @@ public class Rules {
 	private FactDao factDao;
 	
 	protected KieSession kSession;
-	private FormData formData;
 	
-	protected class FormData {
+	protected class FormStrings {
 		final int len = 1;
 		@Getter @Setter private String question;
 		@Getter @Setter private String[] answers;
@@ -38,7 +37,7 @@ public class Rules {
 				"ei ole teind", "lepatriinu"}		
 				};
 		
-		public FormData(int i) {
+		public FormStrings(int i) {
 			if (len >= i) {
 				question = qs[i];
 				answers = as[i];				
@@ -58,6 +57,11 @@ public class Rules {
 			kSession = kContainer.newKieSession("ksession-rules");
 			factDao = new FactDao();
 			factDao.load();
+			//System.out.println(kSession.getEntryPoints().toArray().toString());
+			for (FactVo fact : factDao.getFacts()) {
+				//pass
+				kSession.insert(fact);
+			}
 
 			// TODO: fill decisiontree and launch rules
 
@@ -72,13 +76,14 @@ public class Rules {
 	}
 	
 	public void launch() {
-		formData = new FormData(step);
+		kSession.fireAllRules();
 	}
 	
-	public FormData getFormData() {
-		return formData;
+	
+	public FormStrings getFormData() {
+		return new FormStrings(step);
 	}
-
+/*
 	public static class Message {
 
 		public static final int HELLO = 0;
@@ -103,5 +108,5 @@ public class Rules {
 		public void setStatus(int status) {
 			this.status = status;
 		}
-	}
+	}*/
 }

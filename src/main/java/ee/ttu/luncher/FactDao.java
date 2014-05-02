@@ -36,12 +36,7 @@ public class FactDao {
 	}
 	
 	private void tokenize(String[] line) {
-		System.out.println("rea pikkus on " + String.valueOf(line.length));
-		/*if (line.length < 15) {
-			System.out.println(Arrays.toString(line));
-			return;
-		}*/
-		System.out.println(Arrays.toString(line));
+		System.out.println("Laen faktidesse rida: " + Arrays.toString(line));
 		FactVo factVo = new FactVo();
 		factVo.setName(line[0]);
 		factVo.setCuisine(FactVo.Cuisine.valueOf(u(line[1])));
