@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Luncher</title>
 </head>
-<body>
-<a href="/drools">Drools</a>
-<a href="/orules">OpenRules</a>
-</body>
+  <body>
+    <h1>Luncher:</h1>
+    <p>Tulemused</p>
+    <a href="/drools/clear">Kustuta sessioon</a>
+  </body>
 </html>

@@ -7,8 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Luncher</title>
 </head>
-<body>
-<a href="/drools">Drools</a>
-<a href="/orules">OpenRules</a>
-</body>
+  <body>
+    <h1>OpenRules!</h1>
+  </body>
 </html>

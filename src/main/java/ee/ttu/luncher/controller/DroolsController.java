@@ -1,16 +1,21 @@
-package ee.ttu.luncher;
+package ee.ttu.luncher.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
+import ee.ttu.luncher.drools.Answer;
+import ee.ttu.luncher.drools.Rules;
 
 @Controller
 @SessionAttributes({"rules"})
-public class HomeController {
+@RequestMapping("/drools")
+public class DroolsController {
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String index(Rules rules, @ModelAttribute("form") Answer answer, Model model)
 	{
 		model.addAttribute("formdata", rules.getFormStrings());
@@ -18,9 +23,16 @@ public class HomeController {
 		if (rules.getStep() > rules.getFormStrings().ASIZE) {
 			System.out.print("ruulid launch");
 			rules.launch();
-			return "result";
+			return "droolsresult";
 		} else {
-			return "index";
+			return "droolsform";
 		}
+	}
+
+	@RequestMapping("/clear")
+	public String index(SessionStatus status)
+	{
+		status.setComplete();
+		return "index";
 	}
 }

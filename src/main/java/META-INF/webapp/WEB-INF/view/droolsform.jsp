@@ -9,6 +9,13 @@
 </head>
   <body>
     <h1>Luncher:</h1>
-    <p>Tulemused</p>
+    <p>${formdata.getQuestion()}</p>
+    <form action="/drools" method="POST">
+    <c:forEach var="answer" items="${formdata.getAnswers()}">
+        <input type="radio" name="answer" value="${answer}">${answer}<br>
+    </c:forEach>
+    <!-- <input type="hidden" name="step" value="${step}"> -->
+    <input type="submit" value="Submit" />
+</form>
   </body>
 </html>

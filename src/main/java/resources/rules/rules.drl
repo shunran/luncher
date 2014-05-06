@@ -1,7 +1,7 @@
 package ee.ttu.luncher
 
 import org.kie.api.runtime.KieRuntime
-import ee.ttu.luncher.FactVo
+import ee.ttu.luncher.drools.FactVo
  
 rule "Vegeterian menu"
     // dialect "mvel"

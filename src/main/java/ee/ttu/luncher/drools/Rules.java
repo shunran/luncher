@@ -1,4 +1,4 @@
-package ee.ttu.luncher;
+package ee.ttu.luncher.drools;
 
 import java.util.Map;
 
@@ -19,22 +19,34 @@ public class Rules {
 	
 	protected KieSession kSession;
 	
-	protected class FormStrings {
-		public final int ASIZE = 2;
+	public class FormStrings {
+		public final int ASIZE = 9;
 		@Getter @Setter private String question;
 		@Getter @Setter private String[] answers;
 		
 		private final String[] qs = {
-				"Kas eelistaksid taimetoitu?",
-				"Milleks teile külmkapp, kui te ei suitseta?",
-				"Mis värvi on armastus?"};
+				"Kas söömiseks kuluv aeg on oluline?",
+				"Soovite süüa koha peal või kuskil mujal?",
+				"Kas teeninduse kvaliteet on oluline?",
+				"Kas 15 eurot pearoa eeson liiga kallis?",
+				"Kas liha söömine tekitab teis negatiivseid tundeid?",
+				"Kas sooviksite laua varem reserveerida?",
+				"Kas olulisem on elamus või kõhutäis?",
+				"Kas olete valmis ennast viisakalt riidesse panema?",
+				"Kas toidu kvaliteet on teile oluline?",
+				"Kas lähete autoga?" };
 
-		private final String[][] as = { {
-				"jah", "ei" },
-				{
-				"ikka", "natukene"},
-				{
-				"ei ole teind", "lepatriinu"}		
+		private final String[][] as = { 
+				{ "jah", "ei" },
+				{ "koha peal", "kaasa"},
+				{ "oluline", "ei ole oluline"},
+				{ "kallis", "ei ole kallis"},
+				{ "jah", "ei" },
+				{ "jah", "ei" },
+				{ "elamus", "kõhutäis" },
+				{ "jah", "ei" },
+				{ "jah", "ei" },
+				{ "jah", "ei" }
 				};
 		
 		public FormStrings(int i) {

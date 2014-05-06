@@ -37,7 +37,7 @@ public class WebModule extends WebMvcConfigurerAdapter
 	{
 		UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("WEB-INF/view/");
+		viewResolver.setPrefix("/WEB-INF/view/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
