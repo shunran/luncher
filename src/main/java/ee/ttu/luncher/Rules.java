@@ -20,17 +20,17 @@ public class Rules {
 	protected KieSession kSession;
 	
 	protected class FormStrings {
-		final int len = 1;
+		public final int ASIZE = 2;
 		@Getter @Setter private String question;
 		@Getter @Setter private String[] answers;
 		
 		private final String[] qs = {
-				"Kui vana oli surnud siil?",
+				"Kas eelistaksid taimetoitu?",
 				"Milleks teile külmkapp, kui te ei suitseta?",
 				"Mis värvi on armastus?"};
 
 		private final String[][] as = { {
-				"jeha", "nope" },
+				"jah", "ei" },
 				{
 				"ikka", "natukene"},
 				{
@@ -38,7 +38,7 @@ public class Rules {
 				};
 		
 		public FormStrings(int i) {
-			if (len >= i) {
+			if (ASIZE > i) {
 				question = qs[i];
 				answers = as[i];				
 			} else {
@@ -75,38 +75,26 @@ public class Rules {
 		}
 	}
 	
+	public void processAnswer(Answer answer) {
+		return;
+	}
+	
 	public void launch() {
 		kSession.fireAllRules();
+		System.out.println("and now the remainers:");
+		for (Object fact : kSession.getObjects()) {
+			//pass
+			System.out.println(fact);
+		}
+		//kSession.execute(arg0)
+	}
+	
+	public void increaseStep() {
+		step += 1;
 	}
 	
 	
-	public FormStrings getFormData() {
+	public FormStrings getFormStrings() {
 		return new FormStrings(step);
 	}
-/*
-	public static class Message {
-
-		public static final int HELLO = 0;
-		public static final int GOODBYE = 1;
-
-		private String message;
-
-		private int status;
-
-		public String getMessage() {
-			return this.message;
-		}
-
-		public void setMessage(String message) {
-			this.message = message;
-		}
-
-		public int getStatus() {
-			return this.status;
-		}
-
-		public void setStatus(int status) {
-			this.status = status;
-		}
-	}*/
 }

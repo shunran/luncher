@@ -6,15 +6,25 @@ import ee.ttu.luncher.FactVo
 rule "Vegeterian menu"
     // dialect "mvel"
     when
-        fact : FactVo ( )
+        fact : FactVo ( vegan == true )
     then
-        System.out.println( "vegan" + fact );
+        retract(fact)
+        //System.out.println( fact );
+        
+end
+
+rule "Reservation allowed"
+    when
+        fact : FactVo ( reservation == true )
+    then
+        //retract(fact)        
+        //System.out.println( fact );
         
 end
 
 rule "Life, universe and everything!"
     when
-        eval ( true )
+        fact : FactVo (  )
     then
-        System.out.println( "mind jooksutati" );
+        System.out.println( fact );
 end

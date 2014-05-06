@@ -60,11 +60,11 @@ public class FactDao {
 		facts.add(factVo);
 	}
 
-	private Boolean makeJahEiToBool(String string) {
-		if (u(string) == "JAH")
+	private Boolean makeJahEiToBool(String option) {
+		if (u(option).equals("JAH")) {
 			return true;
-		else
-			return false;
+		}
+		return false;
 	}
 	
 	private String u(String l) {
