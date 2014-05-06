@@ -5,10 +5,13 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
+import java.util.logging.Level;
 
 @Log
 public class Rules {
@@ -72,7 +75,7 @@ public class Rules {
 			factDao = new FactDao();
 			factDao.load();
 			for (FactVo fact : factDao.getFacts()) {
-				//pass
+				log.info("trying to load into drools:" + fact.toString());
 				kSession.insert(fact);
 			}
 
@@ -96,10 +99,8 @@ public class Rules {
 		kSession.fireAllRules();
 		log.info("and now the remainers:");
 		for (Object fact : kSession.getObjects()) {
-			//pass
 			log.info(fact.toString());
 		}
-		//kSession.execute(arg0)
 	}
 	
 	public void increaseStep() {
