@@ -1,5 +1,7 @@
 package ee.ttu.luncher.controller;
 
+import lombok.extern.java.Log;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +15,7 @@ import ee.ttu.luncher.drools.Rules;
 @Controller
 @SessionAttributes({"rules"})
 @RequestMapping("/drools")
+@Log
 public class DroolsController {
 
 	@RequestMapping("")
@@ -21,7 +24,7 @@ public class DroolsController {
 		model.addAttribute("formdata", rules.getFormStrings());
 		rules.increaseStep();
 		if (rules.getStep() > rules.getFormStrings().ASIZE) {
-			System.out.print("ruulid launch");
+			log.info("launching rules");
 			rules.launch();
 			return "droolsresult";
 		} else {
@@ -33,6 +36,6 @@ public class DroolsController {
 	public String index(SessionStatus status)
 	{
 		status.setComplete();
-		return "index";
+		return "redirect:/";
 	}
 }

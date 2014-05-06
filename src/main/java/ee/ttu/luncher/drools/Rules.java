@@ -4,11 +4,13 @@ import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+@Log
 public class Rules {
 	
 	private @Setter @Getter Integer step = 0;
@@ -69,7 +71,6 @@ public class Rules {
 			kSession = kContainer.newKieSession("ksession-rules");
 			factDao = new FactDao();
 			factDao.load();
-			//System.out.println(kSession.getEntryPoints().toArray().toString());
 			for (FactVo fact : factDao.getFacts()) {
 				//pass
 				kSession.insert(fact);
@@ -93,10 +94,10 @@ public class Rules {
 	
 	public void launch() {
 		kSession.fireAllRules();
-		System.out.println("and now the remainers:");
+		log.info("and now the remainers:");
 		for (Object fact : kSession.getObjects()) {
 			//pass
-			System.out.println(fact);
+			log.info(fact.toString());
 		}
 		//kSession.execute(arg0)
 	}

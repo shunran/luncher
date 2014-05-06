@@ -10,8 +10,10 @@ import java.util.Arrays;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 import au.com.bytecode.opencsv.CSVReader;
 
+@Log
 public class FactDao {
 	private final String csvFileName = "/resources/facts.csv";
 	
@@ -27,7 +29,7 @@ public class FactDao {
 		//First row is titles
 		reader.readNext();
 		while ((nextLine = reader.readNext()) != null) {
-			System.out.println("loen rida no:" + i);
+			log.info("loen rida no:" + i);
 			i += 1;
 			// nextLine[] is an array of values from the line
 			tokenize(nextLine);
@@ -36,7 +38,7 @@ public class FactDao {
 	}
 	
 	private void tokenize(String[] line) {
-		System.out.println("Laen faktidesse rida: " + Arrays.toString(line));
+		log.info("Laen faktidesse rida: " + Arrays.toString(line));
 		FactVo factVo = new FactVo();
 		factVo.setName(line[0]);
 		factVo.setCuisine(FactVo.Cuisine.valueOf(u(line[1])));
