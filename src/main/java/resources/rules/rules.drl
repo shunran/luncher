@@ -2,43 +2,59 @@ package ee.ttu.luncher
 
 import org.kie.api.runtime.KieRuntime
 import ee.ttu.luncher.drools.FactVo
+import ee.ttu.luncher.drools.Choice
+import java.util.Collections
+import java.util.List
+import java.util.ArrayList
  
 rule "Vegeterian menu"
     // dialect "mvel"
     when
+        Choice( getChoice().get(0) == 1 )
         fact : FactVo ( vegan == true )
     then
-        retract(fact)
-        //System.out.println( fact );
-        
+        //get(0) == 1
+        System.out.println( "veget tingimused valik oli:" + choice );
+        fact.setPerceptron(fact.getPerceptron() + 1);
+        update(fact);
 end
-
+/*
 rule "Reservation allowed"
     when
         fact : FactVo ( reservation == true )
     then
-        fact.perceptron += 0.6
-        update(fact)
-        //retract(fact)        
-        //System.out.println( fact );
-end
+        fact.setPerceptron(fact.getPerceptron() + 0.6);
+        update(fact);
 
+end
+/*
 rule "Life, universe and everything!"
     when
         fact : FactVo (  )
     then
-        System.out.println( fact );
+        //System.out.println( fact );
 end
+*/
 
 //http://drools.46999.n3.nabble.com/facts-custom-sort-td3538410.html
 /*
 query "get best choice"
-    result "tere"
+//Collections.sort(myList,myComparatorInstance);
+    facts : ArrayList()
+              from collect( FactVo() )
+    Collections.sort(facts)
+    $result : facts.get(0)
+end
+*/
+//end
+/*
+Item($lowestPrice : price, $id : id)
+not Item(price > $lowestPrice, id < $id)
 
- TreeMap( $values: values() )
+ ArrayList( $values: values() )
        from accumulate( $f: Fact(),
-                  init( TreeMap map = new TreeMap(); ),
+                  init( ArrayList map = new ArrayList(); ),
                   action( map.put(factKey($f), $f); ),
                   reverse( map.remove(factKey($f)); ),
                   result( map ) )
-end */
+*/

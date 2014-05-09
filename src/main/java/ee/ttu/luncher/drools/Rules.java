@@ -1,5 +1,8 @@
 package ee.ttu.luncher.drools;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -10,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.QueryResults;
 
 import java.util.logging.Level;
 
@@ -18,7 +22,7 @@ public class Rules {
 	
 	private @Setter @Getter Integer step = 0;
 	private @Setter @Getter String Question;
-	private @Setter @Getter Integer[] choices;
+	private @Setter @Getter Choice choice;
 	
 	private FactDao factDao;
 	
@@ -77,28 +81,38 @@ public class Rules {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-		choices = new Integer[FormStrings.ASIZE + 1];
+		choice = new Choice();
+		//Collections.sort(choices);
 	}
 	
 	public void saveAnswerIfExists(Answer answer) {
 		if (answer.getAnswer() != null) {
 			log.info(String.valueOf((step - 1)) + " sammu vastus oli: " + answer.toString());
-			choices[step-1] = Integer.parseInt(answer.getAnswer());	
+			choice.getChoice().add(step - 1, Integer.parseInt(answer.getAnswer()));	
 		}
 	}
 	
 	public String getBestChoice() {
-		//kSession.getQueryResults("get best choice");
+		//QueryResults results = kSession.getQueryResults("get best choice");
+		//System.out.println(results);
+		log.info("inserting choice");
+		kSession.insert(choice);
+		log.info("choice inserted");
 		return "";
 	}
 	
 	public void launch() {
+		log.info("inserting choices");
+		kSession.insert(choice);
+		log.info("choices inserted");
+		log.info("firing all the rules");
 		kSession.fireAllRules();
-		log.info(choices.toString());
-		log.info("and now the remainers:");
-		for (Object fact : kSession.getObjects()) {
+		/*log.info(choices.toString());
+		/**/
+		log.info("rules fired");
+		/*for (Object fact : kSession.getObjects()) {
 			log.info(fact.toString());
-		}
+		}/**/
 	}
 	
 	public void increaseStep() {

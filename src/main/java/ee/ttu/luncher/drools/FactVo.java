@@ -3,7 +3,7 @@ package ee.ttu.luncher.drools;
 import lombok.Data;
 
 @Data
-public class FactVo {
+public class FactVo implements Comparable <FactVo>{
 	private String       name;
 	private Cuisine      cuisine;
 	private Integer      minCost;
@@ -39,5 +39,10 @@ public class FactVo {
 
 	protected enum Location {
 		EVERYWHERE, OLDCITY, CENTRAL, NORTHTALLINN
+	}
+
+	@Override
+	public int compareTo(FactVo o) {
+		return perceptron<o.getPerceptron()?-1:perceptron>o.getPerceptron()?1:0;
 	}
 }
