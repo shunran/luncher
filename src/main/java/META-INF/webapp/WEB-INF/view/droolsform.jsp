@@ -12,7 +12,7 @@
     <p>${formdata.getQuestion()}</p>
     <form action="/drools" method="POST">
     <c:forEach var="answer" items="${formdata.getAnswers()}">
-        <input type="radio" name="answer" value="${answer}">${answer}<br>
+        <input type="radio" name="answer" value="${answer[1]}">${answer[0]}<br>
     </c:forEach>
     <!-- <input type="hidden" name="step" value="${step}"> -->
     <input type="submit" value="Submit" />

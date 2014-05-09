@@ -22,6 +22,7 @@ public class FactVo {
 	private Integer      maxPreparationTime;
 	private Boolean      cafe;
 	private Boolean      liveMusic;
+	private Double		 perceptron = .0;
 	//@Getter @Setter private Integer?      rating;
 
 	protected enum Cuisine {

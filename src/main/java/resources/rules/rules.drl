@@ -17,9 +17,10 @@ rule "Reservation allowed"
     when
         fact : FactVo ( reservation == true )
     then
+        fact.perceptron += 0.6
+        update(fact)
         //retract(fact)        
         //System.out.println( fact );
-        
 end
 
 rule "Life, universe and everything!"
@@ -28,3 +29,16 @@ rule "Life, universe and everything!"
     then
         System.out.println( fact );
 end
+
+//http://drools.46999.n3.nabble.com/facts-custom-sort-td3538410.html
+/*
+query "get best choice"
+    result "tere"
+
+ TreeMap( $values: values() )
+       from accumulate( $f: Fact(),
+                  init( TreeMap map = new TreeMap(); ),
+                  action( map.put(factKey($f), $f); ),
+                  reverse( map.remove(factKey($f)); ),
+                  result( map ) )
+end */

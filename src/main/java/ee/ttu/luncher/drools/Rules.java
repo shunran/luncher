@@ -18,16 +18,16 @@ public class Rules {
 	
 	private @Setter @Getter Integer step = 0;
 	private @Setter @Getter String Question;
-	private @Setter @Getter Map <String, Integer> choices;
+	private @Setter @Getter Integer[] choices;
 	
 	private FactDao factDao;
 	
 	protected KieSession kSession;
 	
 	public class FormStrings {
-		public final int ASIZE = 9;
+		public final static int ASIZE = 9;
 		@Getter @Setter private String question;
-		@Getter @Setter private String[] answers;
+		@Getter @Setter private String[][] answers;
 		
 		private final String[] qs = {
 				"Kas söömiseks kuluv aeg on oluline?",
@@ -41,28 +41,24 @@ public class Rules {
 				"Kas toidu kvaliteet on teile oluline?",
 				"Kas lähete autoga?" };
 
-		private final String[][] as = { 
-				{ "jah", "ei" },
-				{ "koha peal", "kaasa"},
-				{ "oluline", "ei ole oluline"},
-				{ "kallis", "ei ole kallis"},
-				{ "jah", "ei" },
-				{ "jah", "ei" },
-				{ "elamus", "kõhutäis" },
-				{ "jah", "ei" },
-				{ "jah", "ei" },
-				{ "jah", "ei" }
+		private final String[][][] as = { 
+				{ {"jah", "1"}, {"ei", "2" } },
+				{ {"koha peal", "3"}, {"kaasa", "4"} },
+				{ {"oluline", "5"}, {"ei ole oluline", "6"} },
+				{ {"kallis", "7"}, {"ei ole kallis", "8"} },
+				{ {"jah", "9"}, {"ei", "10"} },
+				{ {"jah", "11"}, {"ei", "12"} },
+				{ {"elamus", "13"}, {"kõhutäis", "14"} },
+				{ {"jah", "15"}, {"ei", "16"} },
+				{ {"jah", "17"}, {"ei", "18"} },
+				{ {"jah", "19"}, {"ei", "20"} }
 				};
 		
 		public FormStrings(int i) {
-			if (ASIZE > i) {
+			if (ASIZE >= i) {
 				question = qs[i];
 				answers = as[i];				
-			} else {
-				question = qs[0];
-				answers = as[0];				
 			}
-
 		}
 	}
 	public Rules() {
@@ -78,25 +74,27 @@ public class Rules {
 				log.info("trying to load into drools:" + fact.toString());
 				kSession.insert(fact);
 			}
-
-			// TODO: fill decisiontree and launch rules
-
-			/*Message message = new Message();
-			/message.setMessage("Hello World");
-		    message.setStatus(Message.HELLO);
-			kSession.insert(message);
-			kSession.fireAllRules();*/
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
+		choices = new Integer[FormStrings.ASIZE + 1];
 	}
 	
-	public void processAnswer(Answer answer) {
-		return;
+	public void saveAnswerIfExists(Answer answer) {
+		if (answer.getAnswer() != null) {
+			log.info(String.valueOf((step - 1)) + " sammu vastus oli: " + answer.toString());
+			choices[step-1] = Integer.parseInt(answer.getAnswer());	
+		}
+	}
+	
+	public String getBestChoice() {
+		//kSession.getQueryResults("get best choice");
+		return "";
 	}
 	
 	public void launch() {
 		kSession.fireAllRules();
+		log.info(choices.toString());
 		log.info("and now the remainers:");
 		for (Object fact : kSession.getObjects()) {
 			log.info(fact.toString());

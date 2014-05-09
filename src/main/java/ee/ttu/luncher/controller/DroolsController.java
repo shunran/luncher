@@ -11,6 +11,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import ee.ttu.luncher.drools.Answer;
 import ee.ttu.luncher.drools.Rules;
+import ee.ttu.luncher.drools.Rules.FormStrings;
 
 @Controller
 @SessionAttributes({"rules"})
@@ -22,12 +23,16 @@ public class DroolsController {
 	public String index(Rules rules, @ModelAttribute("form") Answer answer, Model model)
 	{
 		model.addAttribute("formdata", rules.getFormStrings());
-		rules.increaseStep();
-		if (rules.getStep() > rules.getFormStrings().ASIZE) {
+		rules.saveAnswerIfExists(answer);
+		log.info("praegune step on" + rules.getStep().toString());
+		rules.getFormStrings();
+		if (rules.getStep() > FormStrings.ASIZE) {
 			log.info("launching rules");
 			rules.launch();
+			model.addAttribute(rules.getBestChoice());
 			return "droolsresult";
 		} else {
+			rules.increaseStep();
 			return "droolsform";
 		}
 	}
