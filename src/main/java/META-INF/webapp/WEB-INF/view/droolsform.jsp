@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="<c:url value="/c/style.css" />" rel="stylesheet">
 <title>Luncher</title>
 </head>
   <body>
@@ -15,7 +16,6 @@
     <c:forEach var="answer" items="${formdata.getAnswers()}">
         <input type="radio" name="answer" value="${answer[1]}">${answer[0]}<br>
     </c:forEach>
-    <!-- <input type="hidden" name="step" value="${step}"> -->
     <input type="submit" value="Submit" />
 </form>
   </body>

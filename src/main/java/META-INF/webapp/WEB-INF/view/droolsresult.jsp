@@ -5,12 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="<c:url value="/c/style.css" />" rel="stylesheet">
 <title>Luncher</title>
 </head>
   <body>
     <h1>Luncher:</h1>
     <p>Tulemused</p>
-    <p>Parim oleks teil minna sööma: ${best}</p>
+    <p>Parim oleks teil minna sööma</p>
+    <p>${best}</p>
     <a href="/drools/clear">Kustuta sessioon</a>
   </body>
 </html>
