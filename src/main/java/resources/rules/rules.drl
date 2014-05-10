@@ -12,67 +12,95 @@ rule "Söömiseks kuluv aeg on oluline ja valmistatakse kuni veerand tundi"
         Choice( getChoice().get(0) == 1 )
         fact : FactVo ( maxPreparationTime <= 15)
     then
+        System.out.println("Aeg 15min:" + fact);
         fact.setPerceptron(fact.getPerceptron() + 0.5);
 end
-rule "Söömiseks kuluv aeg on oluline ja valmistatakse mõned toidud alla 5 minuti."
+rule "Söömiseks kuluv aeg on oluline ja võib saada toite alla 5 minuti."
     when
         Choice( getChoice().get(0) == 1 )
         fact : FactVo ( minPreparationTime <= 5 )
     then
+        System.out.println("Aeg 5min:" + fact);
         fact.setPerceptron(fact.getPerceptron() + 1);
+end
 
+rule "Soovitakse süüa mujal ja takeaway on võimalik" //1
+    when
+        Choice( getChoice().get(1) == 1 )
+        fact : FactVo ( takeAway  == true )
+    then
+        System.out.println("Takeaway:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-/*
-rule "Soovite süüa koha peal või kuskil mujal?" //1
+rule "Teeninduse kvaliteet on oluline ja kõrge kvaliteet" //2
+    when
+        Choice( getChoice().get(2) == 1 )
+        fact : FactVo ( serviceClass  == ServiceClass.HI )
+    then
+        System.out.println("Teenindus HI:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Kas teeninduse kvaliteet on oluline?" //2
+rule "Teeninduse kvaliteet on oluline ja keskmine kvaliteet." //2
+    when
+        Choice( getChoice().get(2) == 1 )
+        fact : FactVo ( serviceClass  == ServiceClass.MID )
+    then
+        System.out.println("Teenindus MID:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 0.5);
 end
-rule "Kas 15 eurot pearoa eeson liiga kallis?" // 3
+rule "15 eurot pearoa eest on liiga kallis" // 3
+    when
+        Choice( getChoice().get(3) == 1 )
+        fact : FactVo ( minCost  <= 15 )
+    then
+        System.out.println("mincost alla 15:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Kas liha söömine tekitab teis negatiivseid tundeid?" // 4
+rule "Vegetaaria" // 4
+    when
+        Choice( getChoice().get(4) == 1 )
+        fact : FactVo ( vegan == true )
+    then
+        System.out.println("Vegetaaria:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Kas sooviksite laua varem reserveerida?" // 5
+rule "Reserveerimine soovitud ja võimalik" // 5
+    when
+        Choice( getChoice().get(5) == 1 )
+        fact : FactVo ( reservation  == true )
+    then
+        System.out.println("reserveerimine:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Kas olulisem on elamus või kõhutäis?" // 6
+rule "Elamus on oluline ja elav muusika " // 6
+    when
+        Choice( getChoice().get(6) == 1 )
+        fact : FactVo ( liveMusic  == true )
+    then
+        System.out.println("Elus muusika:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Soovite süüa koha peal või kuskil mujal?" //1
-end
-rule "Kas teeninduse kvaliteet on oluline?" //2
-end
-rule "Kas 15 eurot pearoa eeson liiga kallis?" // 3
-end
-rule "Kas liha söömine tekitab teis negatiivseid tundeid?" // 4
-end
-rule "Kas sooviksite laua varem reserveerida?" // 5
-end
-rule "Kas olulisem on elamus või kõhutäis?" // 6
-end
-rule "Kas olete valmis ennast viisakalt riidesse panema?" // 7
+rule "Dresscode nõutud" // 7
+    when
+        Choice( getChoice().get(7) == 1 )
+        fact : FactVo ( dressCode  == true )
+    then
+        System.out.println("dresscode:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
 rule "Kas toidu kvaliteet on teile oluline?" // 8
+    when
+        Choice( getChoice().get(8) == 1 )
+        fact : FactVo ( cuisine != Cuisine.FASTFOOD )
+    then
+        System.out.println("Ei ole fastfood:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-rule "Kas lähete autoga?"// 9
+rule "Kas lähete oma autoga?"// 9
+    when
+        Choice( getChoice().get(9) == 1 )
+        fact : FactVo ( freeParking  == true )
+    then
+        System.out.println("freeparking:" + fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 end
-*/
-//http://drools.46999.n3.nabble.com/facts-custom-sort-td3538410.html
-/*
-query "get best choice"
-//Collections.sort(myList,myComparatorInstance);
-    facts : ArrayList()
-              from collect( FactVo() )
-    Collections.sort(facts)
-    $result : facts.get(0)
-end
-
-//end
-/*
-Item($lowestPrice : price, $id : id)
-not Item(price > $lowestPrice, id < $id)
-
- ArrayList( $values: values() )
-       from accumulate( $f: Fact(),
-                  init( ArrayList map = new ArrayList(); ),
-                  action( map.put(factKey($f), $f); ),
-                  reverse( map.remove(factKey($f)); ),
-                  result( map ) )
-*/

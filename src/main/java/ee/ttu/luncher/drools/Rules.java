@@ -2,21 +2,14 @@ package ee.ttu.luncher.drools;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 
-import org.drools.core.process.core.TypeObject;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.QueryResults;
-
-import java.util.logging.Level;
 
 @Log
 public class Rules {
@@ -48,15 +41,15 @@ public class Rules {
 
 		private final String[][][] as = { 
 				{ {"jah", "1"}, {"ei", "2" } }, // 0
-				{ {"koha peal", "3"}, {"kaasa", "4"} }, // 1
-				{ {"oluline", "5"}, {"ei ole oluline", "6"} }, // 2
-				{ {"kallis", "7"}, {"ei ole kallis", "8"} }, // 3
-				{ {"jah", "9"}, {"ei", "10"} }, // 4
-				{ {"jah", "11"}, {"ei", "12"} }, // 5
-				{ {"elamus", "13"}, {"kõhutäis", "14"} }, // 6
-				{ {"jah", "15"}, {"ei", "16"} }, // 7
-				{ {"jah", "17"}, {"ei", "18"} }, // 8
-				{ {"jah", "19"}, {"ei", "20"} } // 9
+				{ {"koha peal", "3"}, {"kaasa", "1"} }, // 1
+				{ {"oluline", "1"}, {"ei ole oluline", "6"} }, // 2
+				{ {"kallis", "1"}, {"ei ole kallis", "8"} }, // 3
+				{ {"jah", "1"}, {"ei", "10"} }, // 4
+				{ {"jah", "1"}, {"ei", "12"} }, // 5
+				{ {"elamus", "1"}, {"kõhutäis", "14"} }, // 6
+				{ {"jah", "1"}, {"ei", "16"} }, // 7
+				{ {"jah", "1"}, {"ei", "18"} }, // 8
+				{ {"jah", "1"}, {"ei", "20"} } // 9
 				};
 		
 		public FormStrings(int i) {
@@ -76,19 +69,17 @@ public class Rules {
 			factDao = new FactDao();
 			factDao.load();
 			for (FactVo fact : factDao.getFacts()) {
-				log.info("trying to load into drools:" + fact.toString());
+				log.info("Trying to load into drools:" + fact.toString());
 				kSession.insert(fact);
 			}
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
 		choice = new Choice();
-		//Collections.sort(choices);
 	}
 	
 	public void saveAnswerIfExists(Answer answer) {
 		if (answer.getAnswer() != null) {
-			log.info(String.valueOf((step - 1)) + " sammu vastus oli: " + answer.toString());
 			choice.getChoice().add(step - 1, Integer.parseInt(answer.getAnswer()));	
 		}
 	}
@@ -106,9 +97,9 @@ public class Rules {
 	
 	public void launch() {
 		kSession.insert(choice);
-		log.info("firing all the rules");
+		log.info("sisestan drools sessiooni vastused:" + choice);
 		kSession.fireAllRules();
-		log.info("rules fired");
+		log.info("Rules fired");
 	}
 	
 	public void increaseStep() {

@@ -1,7 +1,5 @@
 package ee.ttu.luncher.controller;
 
-import lombok.extern.java.Log;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +14,6 @@ import ee.ttu.luncher.drools.Rules.FormStrings;
 @Controller
 @SessionAttributes({"rules"})
 @RequestMapping("/drools")
-@Log
 public class DroolsController {
 
 	@RequestMapping("")
@@ -29,7 +26,6 @@ public class DroolsController {
 			model.addAttribute("warning", sWarning);
 		} else if (rules.getStep() > FormStrings.ASIZE) {
 			rules.saveAnswerIfExists(answer);
-			log.info("launching rules");
 			rules.launch();
 			model.addAttribute("best", rules.getBestChoice());
 			return "droolsresult";
