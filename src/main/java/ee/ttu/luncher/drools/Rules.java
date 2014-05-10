@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
+import org.drools.core.process.core.TypeObject;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -34,28 +35,28 @@ public class Rules {
 		@Getter @Setter private String[][] answers;
 		
 		private final String[] qs = {
-				"Kas söömiseks kuluv aeg on oluline?",
-				"Soovite süüa koha peal või kuskil mujal?",
-				"Kas teeninduse kvaliteet on oluline?",
-				"Kas 15 eurot pearoa eeson liiga kallis?",
-				"Kas liha söömine tekitab teis negatiivseid tundeid?",
-				"Kas sooviksite laua varem reserveerida?",
-				"Kas olulisem on elamus või kõhutäis?",
-				"Kas olete valmis ennast viisakalt riidesse panema?",
-				"Kas toidu kvaliteet on teile oluline?",
-				"Kas lähete autoga?" };
+				"Kas söömiseks kuluv aeg on oluline?", //0
+				"Soovite süüa koha peal või kuskil mujal?", //1
+				"Kas teeninduse kvaliteet on oluline?", //2
+				"Kas 15 eurot pearoa eeson liiga kallis?", // 3
+				"Kas liha söömine tekitab teis negatiivseid tundeid?", // 4
+				"Kas sooviksite laua varem reserveerida?", // 5
+				"Kas olulisem on elamus või kõhutäis?", // 6
+				"Kas olete valmis ennast viisakalt riidesse panema?", // 7
+				"Kas toidu kvaliteet on teile oluline?", // 8
+				"Kas lähete autoga?" }; // 9
 
 		private final String[][][] as = { 
-				{ {"jah", "1"}, {"ei", "2" } },
-				{ {"koha peal", "3"}, {"kaasa", "4"} },
-				{ {"oluline", "5"}, {"ei ole oluline", "6"} },
-				{ {"kallis", "7"}, {"ei ole kallis", "8"} },
-				{ {"jah", "9"}, {"ei", "10"} },
-				{ {"jah", "11"}, {"ei", "12"} },
-				{ {"elamus", "13"}, {"kõhutäis", "14"} },
-				{ {"jah", "15"}, {"ei", "16"} },
-				{ {"jah", "17"}, {"ei", "18"} },
-				{ {"jah", "19"}, {"ei", "20"} }
+				{ {"jah", "1"}, {"ei", "2" } }, // 0
+				{ {"koha peal", "3"}, {"kaasa", "4"} }, // 1
+				{ {"oluline", "5"}, {"ei ole oluline", "6"} }, // 2
+				{ {"kallis", "7"}, {"ei ole kallis", "8"} }, // 3
+				{ {"jah", "9"}, {"ei", "10"} }, // 4
+				{ {"jah", "11"}, {"ei", "12"} }, // 5
+				{ {"elamus", "13"}, {"kõhutäis", "14"} }, // 6
+				{ {"jah", "15"}, {"ei", "16"} }, // 7
+				{ {"jah", "17"}, {"ei", "18"} }, // 8
+				{ {"jah", "19"}, {"ei", "20"} } // 9
 				};
 		
 		public FormStrings(int i) {
@@ -93,33 +94,31 @@ public class Rules {
 	}
 	
 	public String getBestChoice() {
-		//QueryResults results = kSession.getQueryResults("get best choice");
-		//System.out.println(results);
-		log.info("inserting choice");
-		kSession.insert(choice);
-		log.info("choice inserted");
-		return "";
+		ArrayList<FactVo> facts = new ArrayList<FactVo>();
+		for (Object fact : kSession.getObjects()) {
+			if (!(fact instanceof FactVo))
+				continue;
+			facts.add((FactVo) fact);
+		}
+		Collections.sort(facts);
+		return facts.get(0).getName();
 	}
 	
 	public void launch() {
-		log.info("inserting choices");
 		kSession.insert(choice);
-		log.info("choices inserted");
 		log.info("firing all the rules");
 		kSession.fireAllRules();
-		/*log.info(choices.toString());
-		/**/
 		log.info("rules fired");
-		/*for (Object fact : kSession.getObjects()) {
-			log.info(fact.toString());
-		}/**/
 	}
 	
 	public void increaseStep() {
 		step += 1;
 	}
 	
-	
+	public void decreaseStep() {
+		step -= 1;
+	}
+
 	public FormStrings getFormStrings() {
 		return new FormStrings(step);
 	}

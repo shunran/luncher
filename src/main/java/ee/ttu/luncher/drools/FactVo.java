@@ -43,6 +43,6 @@ public class FactVo implements Comparable <FactVo>{
 
 	@Override
 	public int compareTo(FactVo o) {
-		return perceptron<o.getPerceptron()?-1:perceptron>o.getPerceptron()?1:0;
+		return perceptron<o.getPerceptron()?1:perceptron>o.getPerceptron()?-1:0;
 	}
 }

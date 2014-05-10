@@ -9,6 +9,7 @@
 </head>
   <body>
     <h1>Luncher:</h1>
+    <h2><red>${warning}</red></h2>
     <p>${formdata.getQuestion()}</p>
     <form action="/drools" method="POST">
     <c:forEach var="answer" items="${formdata.getAnswers()}">

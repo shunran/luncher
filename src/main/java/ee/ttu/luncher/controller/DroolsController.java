@@ -23,18 +23,22 @@ public class DroolsController {
 	public String index(Rules rules, @ModelAttribute("form") Answer answer, Model model)
 	{
 		model.addAttribute("formdata", rules.getFormStrings());
-		rules.saveAnswerIfExists(answer);
-		log.info("praegune step on" + rules.getStep().toString());
-		rules.getFormStrings();
-		if (rules.getStep() > FormStrings.ASIZE) {
+		if (answer.getAnswer() == null && rules.getStep() != 0) {
+			rules.decreaseStep();
+			String sWarning = "Palun vali küsimusele vastus!";
+			model.addAttribute("warning", sWarning);
+		} else if (rules.getStep() > FormStrings.ASIZE) {
+			rules.saveAnswerIfExists(answer);
 			log.info("launching rules");
 			rules.launch();
-			model.addAttribute(rules.getBestChoice());
+			model.addAttribute("best", rules.getBestChoice());
 			return "droolsresult";
 		} else {
-			rules.increaseStep();
-			return "droolsform";
+			rules.saveAnswerIfExists(answer);
 		}
+		model.addAttribute("formdata", rules.getFormStrings());
+		rules.increaseStep();
+		return "droolsform";
 	}
 
 	@RequestMapping("/clear")

@@ -10,6 +10,7 @@
   <body>
     <h1>Luncher:</h1>
     <p>Tulemused</p>
+    <p>Parim oleks teil minna sööma: ${best}</p>
     <a href="/drools/clear">Kustuta sessioon</a>
   </body>
 </html>

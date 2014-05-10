@@ -7,35 +7,53 @@ import java.util.Collections
 import java.util.List
 import java.util.ArrayList
  
-rule "Vegeterian menu"
-    // dialect "mvel"
+rule "Söömiseks kuluv aeg on oluline ja valmistatakse kuni veerand tundi"
     when
         Choice( getChoice().get(0) == 1 )
-        fact : FactVo ( vegan == true )
+        fact : FactVo ( maxPreparationTime <= 15)
     then
-        //get(0) == 1
-        System.out.println( "veget tingimused valik oli:" + choice );
-        fact.setPerceptron(fact.getPerceptron() + 1);
-        update(fact);
+        fact.setPerceptron(fact.getPerceptron() + 0.5);
 end
-/*
-rule "Reservation allowed"
+rule "Söömiseks kuluv aeg on oluline ja valmistatakse mõned toidud alla 5 minuti."
     when
-        fact : FactVo ( reservation == true )
+        Choice( getChoice().get(0) == 1 )
+        fact : FactVo ( minPreparationTime <= 5 )
     then
-        fact.setPerceptron(fact.getPerceptron() + 0.6);
-        update(fact);
+        fact.setPerceptron(fact.getPerceptron() + 1);
 
 end
 /*
-rule "Life, universe and everything!"
-    when
-        fact : FactVo (  )
-    then
-        //System.out.println( fact );
+rule "Soovite süüa koha peal või kuskil mujal?" //1
+end
+rule "Kas teeninduse kvaliteet on oluline?" //2
+end
+rule "Kas 15 eurot pearoa eeson liiga kallis?" // 3
+end
+rule "Kas liha söömine tekitab teis negatiivseid tundeid?" // 4
+end
+rule "Kas sooviksite laua varem reserveerida?" // 5
+end
+rule "Kas olulisem on elamus või kõhutäis?" // 6
+end
+rule "Soovite süüa koha peal või kuskil mujal?" //1
+end
+rule "Kas teeninduse kvaliteet on oluline?" //2
+end
+rule "Kas 15 eurot pearoa eeson liiga kallis?" // 3
+end
+rule "Kas liha söömine tekitab teis negatiivseid tundeid?" // 4
+end
+rule "Kas sooviksite laua varem reserveerida?" // 5
+end
+rule "Kas olulisem on elamus või kõhutäis?" // 6
+end
+rule "Kas olete valmis ennast viisakalt riidesse panema?" // 7
+end
+rule "Kas toidu kvaliteet on teile oluline?" // 8
+end
+rule "Kas lähete autoga?"// 9
 end
 */
-
 //http://drools.46999.n3.nabble.com/facts-custom-sort-td3538410.html
 /*
 query "get best choice"
@@ -45,7 +63,7 @@ query "get best choice"
     Collections.sort(facts)
     $result : facts.get(0)
 end
-*/
+
 //end
 /*
 Item($lowestPrice : price, $id : id)
