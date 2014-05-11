@@ -2,6 +2,9 @@ package ee.ttu.luncher.drools;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +13,7 @@ import lombok.extern.java.Log;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import com.sun.org.omg.CORBA.ValueDefPackage.FullValueDescriptionHelper;
 
 @Log
 public class Rules {
@@ -85,6 +89,31 @@ public class Rules {
 	}
 	
 	public String getBestChoice() {
+		return getSortedResult().get(0).getName();
+	}
+
+	public List<Map<String, String>> getDeterminedChoices(int count) {
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		ArrayList<FactVo> fullResult = getSortedResult();
+
+		if (count > fullResult.size() || count <= 0) {
+			count = fullResult.size();
+		}
+
+		for (int i = 0; i < count; i++) {
+			Map<String, String> restaurant = new HashMap<>();
+			restaurant.put("name", fullResult.get(i).getName());
+			restaurant.put("cuisine", fullResult.get(i).getCuisine().name());
+			restaurant.put("serviceClass", fullResult.get(i).getServiceClass()
+					.name());
+			restaurant.put("perceptron", fullResult.get(i).getPerceptron()
+					.toString());
+			list.add(restaurant);
+		}
+		return list;
+	}
+
+	private ArrayList<FactVo> getSortedResult() {
 		ArrayList<FactVo> facts = new ArrayList<FactVo>();
 		for (Object fact : kSession.getObjects()) {
 			if (!(fact instanceof FactVo))
@@ -92,8 +121,9 @@ public class Rules {
 			facts.add((FactVo) fact);
 		}
 		Collections.sort(facts);
-		return facts.get(0).getName();
+		return facts;
 	}
+
 	
 	public void launch() {
 		kSession.insert(choice);
@@ -112,5 +142,10 @@ public class Rules {
 
 	public FormStrings getFormStrings() {
 		return new FormStrings(step);
+	}
+
+	public Object getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

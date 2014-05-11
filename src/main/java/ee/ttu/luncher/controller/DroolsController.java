@@ -28,6 +28,7 @@ public class DroolsController {
 			rules.saveAnswerIfExists(answer);
 			rules.launch();
 			model.addAttribute("best", rules.getBestChoice());
+			model.addAttribute("list", rules.getDeterminedChoices(10));
 			return "droolsresult";
 		} else {
 			rules.saveAnswerIfExists(answer);
