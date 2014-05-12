@@ -13,35 +13,7 @@
     <p>Tulemused</p>
     <p>Parim oleks teil minna sööma</p>
     <p>${best}</p>
-    <br />
-    <br />
-    <table>
-	    <!-- here should go some titles... -->
-	    <tr>
-	        <th>Nimi</th>
-	        <th>Köök</th>
-	        <th>Teeninduse tase</th>
-	        <th>Skoor</th>
-	    </tr>
-	    <c:forEach begin="0" step="1"
-	        items="${list}" var="restaurants">
-	    <tr>
-	        <td>
-	            <c:out value="${restaurants.name}" />
-	        </td>
-	        <td>
-	            <c:out value="${restaurants.cuisine}" />
-	        </td>
-	        <td>
-	            <c:out value="${restaurants.serviceClass}" />
-	        </td>
-	        <td>
-	            <c:out value="${restaurants.perceptron}" />
-	        </td>
-	    </tr>
-	    </c:forEach>
-	</table>
-    <br />
-    <a href="/drools/clear">Kustuta sessioon</a>
+    <p><a href="/drools/clear">Kustuta sessioon</a></p>
+    <p><a href="/drools/full">Vaata täistabelit</a></p>
   </body>
 </html>

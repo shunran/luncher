@@ -2,7 +2,6 @@ package ee.ttu.luncher.drools;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import lombok.extern.java.Log;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import com.sun.org.omg.CORBA.ValueDefPackage.FullValueDescriptionHelper;
 
 @Log
 public class Rules {
@@ -87,19 +85,20 @@ public class Rules {
 			choice.getChoice().add(step - 1, Integer.parseInt(answer.getAnswer()));	
 		}
 	}
-	
+
 	public String getBestChoice() {
 		return getSortedResult().get(0).getName();
 	}
 
-	public List<Map<String, String>> getDeterminedChoices(int count) {
+	public List<FactVo> getDeterminedChoices(int count) {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		ArrayList<FactVo> fullResult = getSortedResult();
 
 		if (count > fullResult.size() || count <= 0) {
 			count = fullResult.size();
 		}
-
+		return fullResult.subList(0, count);
+		/*
 		for (int i = 0; i < count; i++) {
 			Map<String, String> restaurant = new HashMap<>();
 			restaurant.put("name", fullResult.get(i).getName());
@@ -110,7 +109,11 @@ public class Rules {
 					.toString());
 			list.add(restaurant);
 		}
-		return list;
+		return list;*/
+	}
+
+	public List<FactVo> getDeterminedChoices() {
+		return getSortedResult();
 	}
 
 	private ArrayList<FactVo> getSortedResult() {

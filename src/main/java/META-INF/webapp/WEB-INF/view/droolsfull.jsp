@@ -12,7 +12,34 @@
     <h1>Luncher:</h1>
     <p>Tulemused</p>
     <p>Parim oleks teil minna sööma</p>
-    <p>${best}</p>
+        <br />
+    <br />
+    <table>
+        <!-- here should go some titles... -->
+        <tr>
+            <th>Nimi</th>
+            <th>Köök</th>
+            <th>Teeninduse tase</th>
+            <th>Skoor</th>
+        </tr>
+        <c:forEach var="restaurant" items="${list}">
+        <tr>
+            <td>
+                <c:out value="${restaurant.name}" />
+            </td>
+            <td>
+                <c:out value="${restaurant.cuisine}" />
+            </td>
+            <td>
+                <c:out value="${restaurant.serviceClass}" />
+            </td>
+            <td>
+                <c:out value="${restaurant.perceptron}" />
+            </td>
+        </tr>
+        </c:forEach>
+    </table>
+    <br />
     <a href="/drools/clear">Kustuta sessioon</a>
   </body>
 </html>

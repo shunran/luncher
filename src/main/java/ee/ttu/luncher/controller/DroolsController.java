@@ -1,5 +1,6 @@
 package ee.ttu.luncher.controller;
 
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import ee.ttu.luncher.drools.Rules.FormStrings;
 @Controller
 @SessionAttributes({"rules"})
 @RequestMapping("/drools")
+@Log
 public class DroolsController {
 
 	@RequestMapping("")
@@ -45,12 +47,12 @@ public class DroolsController {
 	}
 
 	@RequestMapping("/full")
-	public String showFullTable(Rules rules, Model model)
+	public String fullTable(Rules rules, Model model)
 	{
-		if (rules.getStep() > FormStrings.ASIZE) {
-			model.addAttribute("list", rules.getDeterminedChoices(10));
-			return "droolsfull";
-		}
-		return "redirect:/";
+		log.info(rules.getStep().toString());
+		if (rules.getStep() <= FormStrings.ASIZE)
+			return "redirect:/";
+		model.addAttribute("list", rules.getDeterminedChoices());
+		return "droolsfull";
 	}
 }
