@@ -40,6 +40,7 @@
         </c:forEach>
     </table>
     <br />
+   <a href="/drools">Vaata soovitust</a>
     <a href="/drools/clear">Kustuta sessioon</a>
   </body>
 </html>

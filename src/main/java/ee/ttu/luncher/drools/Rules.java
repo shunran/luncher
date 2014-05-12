@@ -91,25 +91,12 @@ public class Rules {
 	}
 
 	public List<FactVo> getDeterminedChoices(int count) {
-		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		ArrayList<FactVo> fullResult = getSortedResult();
 
 		if (count > fullResult.size() || count <= 0) {
 			count = fullResult.size();
 		}
 		return fullResult.subList(0, count);
-		/*
-		for (int i = 0; i < count; i++) {
-			Map<String, String> restaurant = new HashMap<>();
-			restaurant.put("name", fullResult.get(i).getName());
-			restaurant.put("cuisine", fullResult.get(i).getCuisine().name());
-			restaurant.put("serviceClass", fullResult.get(i).getServiceClass()
-					.name());
-			restaurant.put("perceptron", fullResult.get(i).getPerceptron()
-					.toString());
-			list.add(restaurant);
-		}
-		return list;*/
 	}
 
 	public List<FactVo> getDeterminedChoices() {
