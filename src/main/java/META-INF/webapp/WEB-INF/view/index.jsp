@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Luncher</title>
-</head>
-<body>
-<a href="/drools">Drools</a>
-<a href="/orules">OpenRules</a>
-</body>
-</html>
+<%@ include file="header.jsp" %>
+<div class="container"  role="main">
+		<div class="jumbotron">
+				<h1>Tere tulemast Luncherisse!</h1>
+				<p>Süsteem küsib sinult 10 valikvastustega küsimust ning neile kõigile vastates oledki leidnud endale kõige sobivama söögikoha</p>
+				<p>Luncher ehk parima söögikoha leidmise abimees on realiseeritud kahe intelligentse süsteemi loomise vahendiga. Küsimustele vastamiseks vali üks allolevatest</p>
+				<div style="text-align: center">
+						<a href="/drools" class="btn btn-success btn-lg" role="button">DRools</a>
+						<a href="/orules" class="btn btn-success btn-lg" role="button">OpenRules</a>
+				 </div>
+		</div>
+</div>
+<%@ include file="footer.jsp" %>

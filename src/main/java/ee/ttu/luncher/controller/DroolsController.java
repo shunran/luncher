@@ -22,6 +22,7 @@ public class DroolsController {
 	public String index(Rules rules, @ModelAttribute("form") Answer answer, Model model)
 	{
 		model.addAttribute("formdata", rules.getFormStrings());
+		model.addAttribute("step", rules.getStep().toString());
 		if (answer.getAnswer() == null && rules.getStep() != 0) {
 			rules.decreaseStep();
 			String sWarning = "Palun vali küsimusele vastus!";

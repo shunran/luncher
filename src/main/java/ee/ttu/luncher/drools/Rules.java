@@ -33,7 +33,7 @@ public class Rules {
 				"Kas söömiseks kuluv aeg on oluline?", //0
 				"Soovite süüa koha peal või kuskil mujal?", //1
 				"Kas teeninduse kvaliteet on oluline?", //2
-				"Kas 15 eurot pearoa eeson liiga kallis?", // 3
+				"Kas 15 eurot pearoa eest on liiga kallis?", // 3
 				"Kas liha söömine tekitab teis negatiivseid tundeid?", // 4
 				"Kas sooviksite laua varem reserveerida?", // 5
 				"Kas olulisem on elamus või kõhutäis?", // 6

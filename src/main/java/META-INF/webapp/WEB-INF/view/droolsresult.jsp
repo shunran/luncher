@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="<c:url value="/c/style.css" />" rel="stylesheet">
-<title>Luncher</title>
-</head>
-  <body>
-    <h1>Luncher:</h1>
-    <p>Tulemused</p>
-    <p>Parim oleks teil minna sÃ¶Ã¶ma</p>
-    <p>${list[0].name} vÃµi ${list[1].name}</p>
-    <p><a href="/drools/clear">Kustuta sessioon</a></p>
-    <p><a href="/drools/full">Vaata tÃ¤istabelit</a></p>
-  </body>
-</html>
+<%@ include file="header.jsp" %>
+<div class="container">
+    <h1>Tulemused</h1>
+    <div class="well">
+	    <h3>Parimaks söögikohaks osutus:</h3>
+	    <br/>
+	    <h1><span class="label label-warning">${list[0].name} või ${list[1].name}</span></h1>
+	    <br/><br/>
+	    <div class="btn-group btn-group-justified" style="width: 40%">
+	    <div class="btn-group">
+	    <a href="/drools/full" class="btn btn-success" role="button">Vaata detailseid tulemusi</a>
+	    </div>
+	    <div class="btn-group">
+	    <a href="/drools/clear" class="btn btn-default" role="button">Alusta uuesti</a>
+	    </div>
+	    </div>
+    </div>
+</div>
+<%@ include file="footer.jsp" %>

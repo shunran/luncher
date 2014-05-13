@@ -1,28 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="<c:url value="/c/style.css" />" rel="stylesheet">
-<title>Luncher</title>
-</head>
-  <body>
-    <h1>Luncher:</h1>
-    <p>Tulemused</p>
-    <p>Parim oleks teil minna sööma</p>
-        <br />
+<%@ include file="header.jsp" %>
+<div class="container"  role="main">
+    <h3>Detailsed tulemused:</h3>
     <br />
-    <table>
+    <div class="table-responsive">
         <!-- here should go some titles... -->
-        <tr>
+        <table class="table table-bordered table-striped">
+        <thead>
+			<tr>
             <th>Nimi</th>
-            <th>Köök</th>
+            <th>Rahvusk��k</th>
+            <th>Keskmine hind (eur)</th>
+            <th>Teenindus</th>
             <th>Teeninduse tase</th>
+            <th>Keskmine ooteaeg (min)</th>
             <th>Skoor</th>
-        </tr>
+            </tr>
+        </thead>
         <c:forEach var="restaurant" items="${list}">
+        <tbody>
         <tr>
             <td>
                 <c:out value="${restaurant.name}" />
@@ -31,16 +26,25 @@
                 <c:out value="${restaurant.cuisine}" />
             </td>
             <td>
+                <c:out value="${(restaurant.minCost + restaurant.maxCost) / 2}" />
+            </td>
+            <td>
+                <c:out value="${restaurant.service}" />
+            </td>
+            <td>
                 <c:out value="${restaurant.serviceClass}" />
+            </td>
+			<td>
+                <c:out value="${(restaurant.minPreparationTime + restaurant.maxPreparationTime) / 2}" />
             </td>
             <td>
                 <c:out value="${restaurant.perceptron}" />
             </td>
         </tr>
+        </tbody>
         </c:forEach>
     </table>
     <br />
-   <a href="/drools">Vaata soovitust</a>
-    <a href="/drools/clear">Kustuta sessioon</a>
-  </body>
-</html>
+    <a href="/drools/clear" class="btn btn-default" role="button">Alusta uuesti</a>
+</div>
+<%@ include file="footer.jsp" %>

@@ -1,22 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="<c:url value="/c/style.css" />" rel="stylesheet">
-<title>Luncher</title>
-</head>
-  <body>
-    <h1>Luncher:</h1>
-    <h2><red>${warning}</red></h2>
-    <p>${formdata.getQuestion()}</p>
-    <form action="/drools" method="POST">
-    <c:forEach var="answer" items="${formdata.getAnswers()}">
-        <input type="radio" name="answer" value="${answer[1]}">${answer[0]}<br>
-    </c:forEach>
-    <input type="submit" value="Submit" />
-</form>
-  </body>
-</html>
+<%@ include file="header.jsp" %>
+<div class="container"  role="main">
+	<p>Kõhutäis ei ole kaugel...</p>
+	<div class="alert alert-dismissable alert-danger" style="display:none">
+		${warning}
+	</div>
+	<div class="progress">
+		<div class="progress-bar progress-bar-success" role="progressbar" style="width: ${(step + 1) * 10}%">
+		</div>
+	</div>
+	<div class="well">
+	<h1>${formdata.getQuestion()}</h1>
+	<br/>
+		<form action="/drools" method="POST">
+		<div class="btn-group btn-group-justified" style="width: 30%">
+			<c:forEach var="answer" items="${formdata.getAnswers()}">
+				<div class="btn-group">
+					<button type="submit" class="btn btn-lg btn-default"  name="answer" value="${answer[1]}">${answer[0]}</button>
+				</div>
+			</c:forEach>
+		</div>
+		</form>
+	</div>
+</div>
+<%@ include file="footer.jsp" %>
