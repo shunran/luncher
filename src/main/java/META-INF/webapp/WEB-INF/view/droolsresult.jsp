@@ -12,7 +12,7 @@
     <h1>Luncher:</h1>
     <p>Tulemused</p>
     <p>Parim oleks teil minna sööma</p>
-    <p>${best}</p>
+    <p>${list[0].name} või ${list[1].name}</p>
     <p><a href="/drools/clear">Kustuta sessioon</a></p>
     <p><a href="/drools/full">Vaata täistabelit</a></p>
   </body>

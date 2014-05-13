@@ -86,10 +86,6 @@ public class Rules {
 		}
 	}
 
-	public String getBestChoice() {
-		return getSortedResult().get(0).getName();
-	}
-
 	public List<FactVo> getDeterminedChoices(int count) {
 		ArrayList<FactVo> fullResult = getSortedResult();
 

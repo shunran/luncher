@@ -29,7 +29,7 @@ public class DroolsController {
 		} else if (rules.getStep() > FormStrings.ASIZE) {
 			rules.saveAnswerIfExists(answer);
 			rules.launch();
-			model.addAttribute("best", rules.getBestChoice());
+			model.addAttribute("list", rules.getDeterminedChoices(2));
 			return "droolsresult";
 		} else {
 			rules.saveAnswerIfExists(answer);
