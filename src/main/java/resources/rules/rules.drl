@@ -104,3 +104,6 @@ rule "Kas lähete oma autoga?"// 9
         System.out.println("freeparking:" + fact);
         fact.setPerceptron(fact.getPerceptron() + 1);
 end
+query getFacts()
+    fact : FactVo ()
+end

@@ -1,28 +1,19 @@
 package ee.ttu.luncher.drools;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-
 @Log
 public class Rules {
 	
 	private @Setter @Getter Integer step = 0;
-	private @Setter @Getter String Question;
 	private @Setter @Getter Choice choice;
 	
-	private FactDao factDao;
-	
-	protected KieSession kSession;
+	private KieBean kieBean;
+	private List<FactVo> facts;
 	
 	public class FormStrings {
 		public final static int ASIZE = 9;
@@ -61,13 +52,11 @@ public class Rules {
 			}
 		}
 	}
-	public Rules() {
-		try {
 
-			KieServices ks = KieServices.Factory.get();
-			KieContainer kContainer = ks.getKieClasspathContainer();
-			
-			kSession = kContainer.newKieSession("ksession-rules");
+	public Rules(KieBean kieBean) {
+		/*
+		try {
+			kSession = statelessKieSession; //kieBean.getNewkSession();
 			factDao = new FactDao();
 			factDao.load();
 			for (FactVo fact : factDao.getFacts()) {
@@ -76,7 +65,8 @@ public class Rules {
 			}
 		} catch (Throwable t) {
 			t.printStackTrace();
-		}
+		}*/
+		this.kieBean = kieBean;
 		choice = new Choice();
 	}
 	
@@ -87,19 +77,20 @@ public class Rules {
 	}
 
 	public List<FactVo> getDeterminedChoices(int count) {
-		ArrayList<FactVo> fullResult = getSortedResult();
+		//ArrayList<FactVo> fullResult = getSortedResult();
 
-		if (count > fullResult.size() || count <= 0) {
-			count = fullResult.size();
+		if (count > facts.size() || count <= 0) {
+			count = facts.size();
 		}
-		return fullResult.subList(0, count);
+		return facts.subList(0, count);
 	}
 
 	public List<FactVo> getDeterminedChoices() {
-		return getSortedResult();
+		return facts;
 	}
-
+/*
 	private ArrayList<FactVo> getSortedResult() {
+		/*
 		ArrayList<FactVo> facts = new ArrayList<FactVo>();
 		for (Object fact : kSession.getObjects()) {
 			if (!(fact instanceof FactVo))
@@ -107,14 +98,14 @@ public class Rules {
 			facts.add((FactVo) fact);
 		}
 		Collections.sort(facts);
-		return facts;
-	}
+		return facts;*
+		return null;
+	}*/
 
 	
 	public void launch() {
-		kSession.insert(choice);
 		log.info("sisestan drools sessiooni vastused:" + choice);
-		kSession.fireAllRules();
+		facts = kieBean.launch(choice);
 		log.info("Rules fired");
 	}
 	
@@ -128,10 +119,5 @@ public class Rules {
 
 	public FormStrings getFormStrings() {
 		return new FormStrings(step);
-	}
-
-	public Object getAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

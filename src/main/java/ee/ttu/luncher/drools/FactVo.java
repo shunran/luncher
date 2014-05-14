@@ -3,7 +3,8 @@ package ee.ttu.luncher.drools;
 import lombok.Data;
 
 @Data
-public class FactVo implements Comparable <FactVo>{
+public class FactVo implements Comparable <FactVo>, Cloneable{
+	
 	private String       name;
 	private Cuisine      cuisine;
 	private Integer      minCost;
@@ -44,5 +45,14 @@ public class FactVo implements Comparable <FactVo>{
 	@Override
 	public int compareTo(FactVo o) {
 		return perceptron<o.getPerceptron()?1:perceptron>o.getPerceptron()?-1:0;
+	}
+	
+	public FactVo clone() {
+		try {
+			return (FactVo) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

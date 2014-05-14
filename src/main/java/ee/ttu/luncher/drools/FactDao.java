@@ -8,19 +8,23 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import au.com.bytecode.opencsv.CSVReader;
 
 @Log
-public class FactDao {
+@Component
+public class FactDao  implements InitializingBean {
 	private final String csvFileName = "/resources/facts.csv";
 	
 	@Getter @Setter
 	private ArrayList <FactVo> facts = new ArrayList<FactVo>();
 
-	public void load() throws IOException {
+	private void load() throws IOException {
 		InputStream in = (InputStream) getClass().getResourceAsStream(csvFileName);
 		Reader bReader = new BufferedReader(new InputStreamReader(in));
 		CSVReader reader = new CSVReader(bReader, '\t');
@@ -71,5 +75,10 @@ public class FactDao {
 	
 	private String u(String l) {
 		return l.trim().toUpperCase();
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		load();
 	}
 }
