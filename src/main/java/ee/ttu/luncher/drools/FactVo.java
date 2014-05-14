@@ -24,7 +24,6 @@ public class FactVo implements Comparable <FactVo>, Cloneable{
 	private Boolean      cafe;
 	private Boolean      liveMusic;
 	private Double		 perceptron = .0;
-	//@Getter @Setter private Integer?      rating;
 
 	protected enum Cuisine {
 		FASTFOOD, ASIA, AFRICA, AUSTRALIA, ITALY, EUROPE, LATVIA, RUSSIA, UNKNOWN

@@ -27,13 +27,12 @@ public class DroolsController {
 	@ModelAttribute("rules")
 	public Rules initNewRules() {
 		Rules rules = new Rules(kieBean);
-		//rules.initSession(kieBean.getNewkSession());
-		log.info("creating new session!");
+		log.info("creating new www session!");
 		return rules;
 	}
 
 	@RequestMapping("")
-	public String index(/*@ModelAttribute("rules") */Rules rules, @ModelAttribute("form") Answer answer, Model model)
+	public String index(Rules rules, @ModelAttribute("form") Answer answer, Model model)
 	{
 		model.addAttribute("formdata", rules.getFormStrings());
 		model.addAttribute("step", rules.getStep().toString());
