@@ -70,6 +70,10 @@ public class Rules {
 		choice = new Choice();
 	}
 	
+	public Rules(){
+		
+	}
+	
 	public void saveAnswerIfExists(Answer answer) {
 		if (answer.getAnswer() != null) {
 			choice.getChoice().add(step - 1, Integer.parseInt(answer.getAnswer()));	
