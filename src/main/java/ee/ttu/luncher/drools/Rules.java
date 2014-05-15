@@ -98,7 +98,7 @@ public class Rules {
 			facts.add((FactVo) fact);
 		}
 		Collections.sort(facts);
-		return facts;*
+		return facts;* 
 		return null;
 	}*/
 
