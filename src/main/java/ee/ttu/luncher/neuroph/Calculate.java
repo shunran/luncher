@@ -1,6 +1,7 @@
 package ee.ttu.luncher.neuroph;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.neuroph.core.NeuralNetwork;
@@ -28,17 +29,21 @@ public class Calculate {
 
 	public FactVo getAwnser(List<Integer> choice) {
 		InputStream in = (InputStream) getClass().getResourceAsStream(
-				"/resources/luncher.nnet");
+				"/resources/luncher1.nnet");
 		network = NeuralNetwork.load(in);
 		choice = normalizeData(choice);
 		Double answer = calculate(choice.get(0), choice.get(1), choice.get(2),
 				choice.get(3), choice.get(4), choice.get(5), choice.get(6),
 				choice.get(7), choice.get(8), choice.get(9));
 
-		System.out.println(factDao.getFacts()
-				.get((int) Math.round(answer / 0.05)).getName());
-		System.out.println(Math.round(answer / 0.05));
-		return factDao.getFacts().get((int) Math.round(answer / 0.05));
+		ArrayList<FactVo> places = factDao.getFacts();
+		Double fraction = 0.05;
+		System.out.println(fraction + " " + places.size());
+		System.out.println(places
+				.get((int) Math.round(answer / fraction)).getName());
+		System.out.println(Math.round(answer / fraction));
+		System.out.println(answer);
+		return places.get((int) Math.round(answer / fraction));
 	}
 
 	public List<Integer> normalizeData(List<Integer> choices) {
@@ -49,7 +54,7 @@ public class Calculate {
 				choices.set(i, 0);
 			}
 		}
-		System.out.println(choices.toString());
+//		System.out.println(choices.toString());
 		return choices;
 	}
 

@@ -6,7 +6,7 @@
 				<p>Luncher ehk parima söögikoha leidmise abimees on realiseeritud kahe intelligentse süsteemi loomise vahendiga. Küsimustele vastamiseks vali üks allolevatest</p>
 				<div style="text-align: center">
 						<a href="/drools" class="btn btn-success btn-lg" role="button">DRools</a>
-						<a href="/orules" class="btn btn-success btn-lg" role="button">OpenRules</a>
+						<a href="/neuroph" class="btn btn-success btn-lg" role="button">Neuroph</a>
 				 </div>
 		</div>
 </div>
