@@ -71,7 +71,7 @@ public class Rules {
 	}
 	
 	public Rules(){
-		
+		choice = new Choice();
 	}
 	
 	public void saveAnswerIfExists(Answer answer) {
