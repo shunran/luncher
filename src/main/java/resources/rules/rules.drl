@@ -1,8 +1,8 @@
 package ee.ttu.luncher
 
 import org.kie.api.runtime.KieRuntime
-import ee.ttu.luncher.drools.FactVo
-import ee.ttu.luncher.drools.Choice
+import ee.ttu.luncher.generic.FactVo
+import ee.ttu.luncher.generic.Choice
 import java.util.Collections
 import java.util.List
 import java.util.ArrayList

@@ -8,8 +8,8 @@ import org.neuroph.core.NeuralNetwork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ee.ttu.luncher.drools.FactDao;
-import ee.ttu.luncher.drools.FactVo;
+import ee.ttu.luncher.generic.FactDao;
+import ee.ttu.luncher.generic.FactVo;
 
 @Component
 public class Calculate {
@@ -27,7 +27,7 @@ public class Calculate {
 		return answer;
 	}
 
-	public FactVo getAwnser(List<Integer> choice) {
+	public FactVo getAnswer(List<Integer> choice) {
 		InputStream in = (InputStream) getClass().getResourceAsStream(
 				"/resources/luncher1.nnet");
 		network = NeuralNetwork.load(in);

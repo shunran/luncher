@@ -1,4 +1,4 @@
-package ee.ttu.luncher.drools;
+package ee.ttu.luncher.generic;
 
 import java.io.BufferedReader;
 import java.io.IOException;

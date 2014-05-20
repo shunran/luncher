@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import ee.ttu.luncher.drools.Answer;
-import ee.ttu.luncher.drools.FactDao;
-import ee.ttu.luncher.drools.Rules;
-import ee.ttu.luncher.drools.Rules.FormStrings;
+import ee.ttu.luncher.generic.FormStrings;
+import ee.ttu.luncher.generic.Answer;
 import ee.ttu.luncher.neuroph.Calculate;
+import ee.ttu.luncher.neuroph.Rules;
 
 @Controller
 @SessionAttributes({"rules"})
@@ -42,7 +41,7 @@ public class NeurophController {
 		if (rules.getStep() > FormStrings.ASIZE) {
 			
 			rules.saveAnswerIfExists(answer);
-			model.addAttribute("list", calculate.getAwnser(rules.getChoice().getChoice()));
+			model.addAttribute("list", calculate.getAnswer(rules.getChoice().getChoice()));
 			return "neurophresult";
 		} else if (answer.getAnswer() == null && rules.getStep() != 0) {
 				rules.decreaseStep();

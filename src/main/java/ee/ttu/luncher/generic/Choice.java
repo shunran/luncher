@@ -1,10 +1,9 @@
-package ee.ttu.luncher.drools;
+package ee.ttu.luncher.generic;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
-import ee.ttu.luncher.drools.Rules.FormStrings;
 
 @Data
 public class Choice {

@@ -16,6 +16,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ee.ttu.luncher.generic.Choice;
+import ee.ttu.luncher.generic.FactDao;
+import ee.ttu.luncher.generic.FactVo;
+
 @Log
 @Component
 public class KieBean implements InitializingBean{
