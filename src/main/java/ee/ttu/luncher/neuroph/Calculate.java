@@ -2,16 +2,31 @@ package ee.ttu.luncher.neuroph;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import lombok.extern.java.Log;
 
 import org.neuroph.core.NeuralNetwork;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+
+
+
+
+
+
+
+import ee.ttu.luncher.drools.KieBean;
+import ee.ttu.luncher.generic.Choice;
 import ee.ttu.luncher.generic.FactDao;
 import ee.ttu.luncher.generic.FactVo;
+import ee.ttu.luncher.generic.FormStrings;
 
 @Component
+@Log
 public class Calculate {
 
 	@Autowired
@@ -38,11 +53,11 @@ public class Calculate {
 
 		ArrayList<FactVo> places = factDao.getFacts();
 		Double fraction = 0.05;
-		System.out.println(fraction + " " + places.size());
-		System.out.println(places
+		log.info(fraction + " " + places.size());
+		log.info(places
 				.get((int) Math.round(answer / fraction)).getName());
-		System.out.println(Math.round(answer / fraction));
-		System.out.println(answer);
+		log.info(String.valueOf(Math.round(answer / fraction)));
+		log.info(answer.toString());
 		return places.get((int) Math.round(answer / fraction));
 	}
 
@@ -54,8 +69,25 @@ public class Calculate {
 				choices.set(i, 0);
 			}
 		}
-//		System.out.println(choices.toString());
 		return choices;
+	}
+	
+
+	public void train (KieBean kieBean) {
+
+		List <Choice> choices = new ArrayList<Choice>(FormStrings.ASIZE+1);
+		for (Integer i=0; i < Math.pow(2,FormStrings.ASIZE+1); i++) {
+			String pad = String.format("%0" + (FormStrings.ASIZE + 1) + 'd', new Integer(Integer.toBinaryString(i)));
+			Choice choice = new Choice();
+			for (char ch: pad.toCharArray()) {
+				choice.getChoice().add(Character.getNumericValue(ch));
+			}
+			choices.add(choice);
+		}
+		log.info(choices.toString());
+		//kieBean.launch(choice); ????
+		//NeuralNetwork nw  = new NeuralNetwork(); ???
+		return;
 	}
 
 }
