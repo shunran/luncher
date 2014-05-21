@@ -63,13 +63,12 @@ public class NeurophController {
 		return "redirect:/";
 	}
 
-	/*@RequestMapping("/train")
-	@Autowired
-	public String train(@Qualifier("kieBean") KieBean kieBean)
+	@RequestMapping("/train")
+	public String train()
 	{
-		calculate.train(kieBean);
+		calculate.train();
 		return "redirect:/";
-	}*/
+	}/* */
 
 	/*@RequestMapping("/full")
 	public String fullTable(Rules rules, Model model)

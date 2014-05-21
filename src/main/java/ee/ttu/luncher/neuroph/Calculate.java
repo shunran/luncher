@@ -1,23 +1,20 @@
 package ee.ttu.luncher.neuroph;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import lombok.extern.java.Log;
 
 import org.neuroph.core.NeuralNetwork;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-
-
-
-
-
-
 
 import ee.ttu.luncher.drools.KieBean;
 import ee.ttu.luncher.generic.Choice;
@@ -31,7 +28,10 @@ public class Calculate {
 
 	@Autowired
 	FactDao factDao; 
-
+	
+	@Autowired
+	KieBean kieBean;
+	
 	NeuralNetwork network;
 
 	private Double calculate(double... input) {
@@ -73,21 +73,37 @@ public class Calculate {
 	}
 	
 
-	public void train (KieBean kieBean) {
-
-		List <Choice> choices = new ArrayList<Choice>(FormStrings.ASIZE+1);
+	public void train () {
+		Map <Choice, List<FactVo>> trainingData = new HashMap<Choice, List<FactVo>>();
 		for (Integer i=0; i < Math.pow(2,FormStrings.ASIZE+1); i++) {
 			String pad = String.format("%0" + (FormStrings.ASIZE + 1) + 'd', new Integer(Integer.toBinaryString(i)));
 			Choice choice = new Choice();
 			for (char ch: pad.toCharArray()) {
 				choice.getChoice().add(Character.getNumericValue(ch));
 			}
-			choices.add(choice);
+			trainingData.put(choice, kieBean.launch(choice));
 		}
-		log.info(choices.toString());
-		//kieBean.launch(choice); ????
-		//NeuralNetwork nw  = new NeuralNetwork(); ???
-		return;
+		write(trainingData);
+	}
+	
+	private void write(Map <Choice, List<FactVo>> trainingData) {
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("trainingdata.txt", "UTF-8");
+			for(Entry<Choice, List<FactVo>> entry : trainingData.entrySet()) {
+			writer.println(entry.getKey().getChoice().toString() + entry.getValue().get(0).getName() + 
+					"," + entry.getValue().get(1).getName()
+					+ "," + entry.getValue().get(2).getName());
+			}
+			writer.println("That's it, folks!");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
