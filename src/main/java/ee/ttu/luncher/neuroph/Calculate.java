@@ -34,31 +34,34 @@ public class Calculate {
 	
 	NeuralNetwork network;
 
-	private Double calculate(double... input) {
+	private double[] calculate(double... input) {
 		network.setInput(input);
 		network.calculate();
-		double[] output = network.getOutput();
-		Double answer = output[0];
+		double[] answer = network.getOutput();
 		return answer;
 	}
 
 	public FactVo getAnswer(List<Integer> choice) {
 		InputStream in = (InputStream) getClass().getResourceAsStream(
-				"/resources/luncher1.nnet");
+				"/resources/weightFile.nnet");
 		network = NeuralNetwork.load(in);
 		choice = normalizeData(choice);
-		Double answer = calculate(choice.get(0), choice.get(1), choice.get(2),
+		double[] answer = calculate(choice.get(0), choice.get(1), choice.get(2),
 				choice.get(3), choice.get(4), choice.get(5), choice.get(6),
 				choice.get(7), choice.get(8), choice.get(9));
 
 		ArrayList<FactVo> places = factDao.getFacts();
-		Double fraction = 0.05;
-		log.info(fraction + " " + places.size());
-		log.info(places
-				.get((int) Math.round(answer / fraction)).getName());
-		log.info(String.valueOf(Math.round(answer / fraction)));
-		log.info(answer.toString());
-		return places.get((int) Math.round(answer / fraction));
+		String binaryNumber = "";
+		for(double n : answer){
+			if(n > 0.5){
+				binaryNumber += "1";
+			}else{
+				binaryNumber += "0";
+			}
+		}
+		int decimalValue = Integer.parseInt(binaryNumber, 2);
+		log.info(decimalValue + "");
+		return places.get(decimalValue);
 	}
 
 	public List<Integer> normalizeData(List<Integer> choices) {
