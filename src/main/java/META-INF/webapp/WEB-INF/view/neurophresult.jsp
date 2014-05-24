@@ -6,11 +6,7 @@
 	    <br/>
 	    <h1><span class="label label-warning">${list.name} </span></h1>
 	    <br/><br/>
-	    <div class="btn-group btn-group-justified" style="width: 40%">
-	    <div class="btn-group">
-	    <a href="/drools/clear" class="btn btn-default" role="button">Alusta uuesti</a>
-	    </div>
-	    </div>
+	    <a href="/drools/clear" class="btn btn-default" role="button" >Alusta uuesti</a>
     </div>
 </div>
 <%@ include file="footer.jsp" %>
